@@ -7,9 +7,9 @@
 
 import UIKit
 
-let image0 = UIImage(named: "peach")
-let image1 = UIImage(named: "banana")
-let image2 = UIImage(named: "ichigo")
+let image0 = UIImage(named: "peach.jpg")
+let image1 = UIImage(named: "banana.jpg")
+let image2 = UIImage(named: "ichigo.jpg")
 let image_array = [image0,image1,image2]
 
 var count = 0
@@ -23,7 +23,10 @@ var timercount = 0
 
 class ViewController: UIViewController {
 
-
+    @IBOutlet weak var Next: UIButton!
+    @IBOutlet weak var Prev: UIButton!
+    
+    
     @IBOutlet weak var ImageView: UIImageView!
     
     @IBAction func next(_ sender: Any) {
@@ -54,10 +57,15 @@ class ViewController: UIViewController {
         
         timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.countTimer(_:)), userInfo: nil, repeats: true)
         startstop = true
+            Next.isEnabled = false
+            Prev.isEnabled = false
+            
         } else {
         
         timer.invalidate()
         startstop = false
+            Next.isEnabled = true
+            Prev.isEnabled = true
         }
     }
     
@@ -83,9 +91,13 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let zoomController:zoom = segue.destination as! zoom
         zoomController.x = count
+        
+        if timer == nil {
+            
+        }else{
         timer.invalidate()
         startstop = false
-        
+        }
     }
     
 
